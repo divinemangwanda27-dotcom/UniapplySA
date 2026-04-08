@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniApply SA</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+
+<!-- NAV -->
+<nav class="flex justify-between p-6 bg-white shadow">
+  <h1 class="text-2xl font-bold text-blue-600">UniApply SA</h1>
+  <div class="space-x-4">
+    <button onclick="showPage('home')">Home</button>
+    <button onclick="showPage('institutions')">Institutions</button>
+    <button onclick="showPage('bursaries')">Bursaries</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="page p-10 text-center">
+  <h2 class="text-4xl font-bold mb-4">Apply to any SA University</h2>
+  <p class="mb-6">One profile. Multiple applications.</p>
+  <button class="bg-blue-600 text-white px-6 py-2 rounded transform hover:scale-110 transition" onclick="showPage('apply')" class="bg-blue-600 text-white px-6 py-2 rounded">Start Application</button>
+  <button class="bg-blue-600 text-white px-6 py-2 rounded transform hover:scale-110 transition" onclick="showPage('institutions')" class="border px-6 py-2 rounded ml-4">Browse Universities</button>
+
+  <p class="text-sm text-gray-400 mt-6">🔒 Your data is securely stored and protected.</p>
+
+  <div class="grid md:grid-cols-3 gap-6 mt-10">
+    <div class="bg-white p-6 shadow rounded">
+      <h3 class="font-bold">Centralized Docs</h3>
+      <button onclick="showPage('docs')" class="text-blue-600">Open</button>
+    </div>
+    <div class="bg-white p-6 shadow rounded">
+      <h3 class="font-bold">Bursary Finder</h3>
+      <button onclick="showPage('bursaries')" class="text-blue-600">Open</button>
+    </div>
+    <div class="bg-white p-6 shadow rounded">
+      <h3 class="font-bold">Live Tracking</h3>
+      <button onclick="showPage('tracking')" class="text-blue-600">Open</button>
+    </div>
+  </div>
+</div>
+
+<!-- APPLY PAGE -->
+<div id="apply" class="page hidden p-10">
+  <h2 class="text-3xl font-bold mb-4">Create Your Profile</h2>
+  <input class="border p-2 block mb-3" placeholder="Full Name">
+  <input class="border p-2 block mb-3" placeholder="ID Number">
+  <button class="bg-blue-600 text-white px-4 py-2 rounded">Submit</button>
+</div>
+
+<!-- INSTITUTIONS -->
+<div id="institutions" class="page hidden p-10">
+  <h2 class="text-3xl font-bold mb-4">Universities</h2>
+
+  <!-- Search Bar -->
+  <input 
+    type="text" 
+    id="searchInput" 
+    onkeyup="filterUniversities()" 
+    placeholder="Search for a university..." 
+    class="border p-2 w-full mb-4 rounded"
+  >
+
+  <!-- Dropdown List -->
+  <select id="universityList" size="10" class="w-full border p-3 rounded">
+    <option>University of Cape Town</option>
+    <option>University of the Witwatersrand</option>
+    <option>University of Pretoria</option>
+    <option>Stellenbosch University</option>
+    <option>Rhodes University</option>
+    <option>University of KwaZulu-Natal</option>
+    <option>North-West University</option>
+    <option>University of the Free State</option>
+    <option>University of the Western Cape</option>
+    <option>University of Fort Hare</option>
+    <option>Cape Peninsula University of Technology</option>
+    <option>Durban University of Technology</option>
+    <option>Tshwane University of Technology</option>
+    <option>Vaal University of Technology</option>
+    <option>Central University of Technology</option>
+    <option>Mangosuthu University of Technology</option>
+    <option>University of Johannesburg</option>
+    <option>Nelson Mandela University</option>
+    <option>University of South Africa (UNISA)</option>
+    <option>University of Venda</option>
+    <option>University of Zululand</option>
+    <option>Walter Sisulu University</option>
+    <option>University of Mpumalanga</option>
+    <option>Sol Plaatje University</option>
+    <option>Sefako Makgatho Health Sciences University</option>
+  </select>
+
+  <!-- Apply Button -->
+  <button class="mt-4 bg-blue-600 text-white px-6 py-2 rounded">
+    Apply to Selected University
+  </button>
+</div>
+	
+  </ul>
+</div>
+
+<!-- BURSARIES -->
+<div id="bursaries" class="page hidden p-10">
+  <h2 class="text-3xl font-bold mb-4">Bursaries</h2>
+  <p>Apply for NSFAS, private bursaries, and more.</p>
+</div>
+
+<!-- DOCS -->
+<div id="docs" class="page hidden p-10">
+  <h2 class="text-3xl font-bold mb-4">Upload Documents</h2>
+  <input type="file" class="mb-3">
+</div>
+
+<!-- TRACKING -->
+<div id="tracking" class="page hidden p-10">
+  <h2 class="text-3xl font-bold mb-4">Application Status</h2>
+  <ul>
+    <li>UJ - Pending</li>
+    <li>Wits - Accepted</li>
+  </ul>
+</div>
+
+<script>
+
+function filterUniversities() {
+  let input = document.getElementById("searchInput");
+  let filter = input.value.toLowerCase();
+  let select = document.getElementById("universityList");
+  let options = select.getElementsByTagName("option");
+
+  for (let i = 0; i < options.length; i++) {
+    let txt = options[i].textContent || options[i].innerText;
+    options[i].style.display = txt.toLowerCase().includes(filter) ? "" : "none";
+  }
+}
+
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+  document.getElementById(pageId).classList.remove('hidden');
+}
+</script>
+<style>
+@keyframes scrollText {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+.scrolling-text {
+  white-space: nowrap;
+  display: inline-block;
+  animation: scrollText 10s linear infinite;
+}
+</style>
+<div class="overflow-hidden bg-blue-100 py-2">
+  <p class="scrolling-text text-blue-700 font-semibold">
+    🚀 Apply to multiple universities with one profile using UniApply SA!
+  </p>
+</div>
+
+
+<section class="bg-white py-16 text-center">
+  <h2 class="text-2xl font-bold mb-8">Top South African Universities</h2>
+
+  <div class="relative max-w-5xl mx-auto overflow-hidden">
+    
+    <!-- Carousel Track -->
+    <div id="carousel" class="flex transition-transform duration-500">
+
+      <!-- UCT -->
+      <a href="https://www.uct.ac.za/" target="_blank" class="min-w-full flex justify-center">
+        <img src="images/uct.png" class="h-40 object-contain">
+      </a>
+
+      <!-- Wits -->
+      <a href="https://www.wits.ac.za/" target="_blank" class="min-w-full flex justify-center">
+        <img src="images/wits.png" class="h-40 object-contain">
+      </a>
+
+      <!-- University of Pretoria -->
+      <a href="https://www.up.ac.za/" target="_blank" class="min-w-full flex justify-center">
+        <img src="images/up.png" class="h-40 object-contain">
+      </a>
+
+      <!-- Stellenbosch -->
+      <a href="https://www.sun.ac.za/" target="_blank" class="min-w-full flex justify-center">
+        <img src="images/stellenbosch.png" class="h-40 object-contain">
+      </a>
+
+      <!-- UKZN -->
+      <a href="https://www.ukzn.ac.za/" target="_blank" class="min-w-full flex justify-center">
+        <img src="images/ukzn.png" class="h-40 object-contain">
+      </a>
+
+    </div>
+
+    <!-- Buttons -->
+    <button onclick="prevSlide()" class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-200 px-4 py-2 rounded-full">←</button>
+    <button onclick="nextSlide()" class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-200 px-4 py-2 rounded-full">→</button>
+
+  </div>
+</section>
+<script>
+let index = 0;
+const carousel = document.getElementById("carousel");
+const totalSlides = carousel.children.length;
+
+function updateSlide() {
+  carousel.style.transform = `translateX(-${index * 100}%)`;
+}
+
+function nextSlide() {
+  index = (index + 1) % totalSlides;
+  updateSlide();
+}
+
+function prevSlide() {
+  index = (index - 1 + totalSlides) % totalSlides;
+  updateSlide();
+}
+
+// Auto-slide every 3 seconds
+setInterval(nextSlide, 3000);
+</script>
+</body>
+</html>
